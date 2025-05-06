@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Shop</title>
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+
+<body>
+    <div class="main-content fade-in">
+
+    <div class="wrapper-scale">
+            <p class="message hint">
+                You enter a small circular chamber.
+                In the center of the room, an elaborate trapdoor covers<br class="mobile-hide">
+                an opening in the floor with a sign that reads "CLOSED".<br><br>
+
+                Surrounding you on all sides are bolts of brightly colored fabric<br class="mobile-hide">
+                stacked up densley near the walls, the rich hues<br class="mobile-hide">
+                fighting against the warm yellow candlelight.
+
+    
+            <br><br>
+                <a id="success-2-button" href="#">Regard the other patrons.</a>             
+        </div>
+    </div>
+
+    <template id="success-screen-3">
+        <div class="main-content fade-in">
+
+        <div class="wrapper-scale">
+                <p class="message hint">
+                    <img class="hint-img" src="img/Sonnet-MaiseyStickerSolution-PoshTravelers-v1.png" title="A circular chamber"><br><br>
+
+                    You’re not in the room alone, however, as two strange <br class="mobile-hide">
+                    characters are dramatically expressing their displeasure at <br class="mobile-hide">
+                    the current situation. They’ve traveled a long way<br class="mobile-hide">
+                    and whoever they’ve come to see is currently unavailable.<br><br>
+
+                    You start to second guess your own presence here.<br class="mobile-hide">
+                    Maybe it would be best to see what else is <br class="mobile-hide">
+                    open and come back another time. 
+
+
+    
+                    
+                <br><br>
+                    <a id="" href="index.html">Leave them to their complaining.</a>
+                </p>  
+            </div>
+        </div>
+    </template>
+    
+    <script>
+        // Ordered list of success screen template IDs
+        const successScreens = [
+            "success-screen-3",
+        ];
+    
+        let currentIndex = 0;
+    
+        function showNextScreen() {
+            if (currentIndex >= successScreens.length) return;
+    
+            const templateId = successScreens[currentIndex];
+            const template = document.getElementById(templateId);
+    
+            const oldMain = document.querySelector(".main-content");
+            oldMain.classList.add("fade-out");
+    
+            setTimeout(() => {
+                oldMain.remove();
+    
+                // Clone and append the new screen
+                const clone = template.content.cloneNode(true);
+                document.body.appendChild(clone);
+    
+                currentIndex++;
+    
+                // Set up click on the next screen’s button
+                const nextButton = document.querySelector(".main-content a");
+                if (nextButton) {
+                    // Only prevent default if there's another screen to show
+                    if (currentIndex < successScreens.length) {
+                        nextButton.addEventListener("click", (e) => {
+                            e.preventDefault();
+                            showNextScreen();
+                        });
+                    }
+                }
+            }, 500); // match fade-out time
+        }
+    
+        // Initial event to kick off the sequence
+        document.getElementById("success-2-button").addEventListener("click", (e) => {
+            e.preventDefault();
+            showNextScreen();
+        });
+    </script>
+
+
+</body>
+
+
+</html>
+
