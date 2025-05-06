@@ -314,6 +314,10 @@ a:visited{
       height:100%;
     }
 
+    .story-image{
+      height:950px;
+    }
+
     .border-item {
       width: 100px;
       height: auto; /* or a set height if needed */
