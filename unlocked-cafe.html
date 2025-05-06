@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Cafe</title>
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+
+<body>
+
+
+    <div class="main-content fade-in">
+        <div class="wrapper-scale">
+            <p class="message hint">
+                You find yourself in the back room<br class="mobile-hide">
+                of the Stonebread Hollow, a cafe nestled<br class="mobile-hide">
+                on the northern edge of town.<br><br>
+
+                The space itself is inviting- a warm, candlelit<br class="mobile-hide">
+                cavern lined with bookshelves, subterranean&nbsp;plants,<br class="mobile-hide">
+                and communal tables for patrons to unwind.<br class="mobile-hide">
+                A small stage is carved into the back of the&nbsp;chamber.<br class="mobile-hide">
+                
+            <br><br>
+                <a id="success-2-button" href="#">Fix your eyes on the stage.</a>
+            </p>  
+        </div>
+    </div>
+
+    <template id="success-screen-3">
+        <div class="main-content fade-in">
+            <div class="wrapper-scale">
+                <p class="message hint">
+                    <img class="hint-img" src="img/Sonnet-MainSolution-OrganPlayer-v1.png" title="A musician"><br><br>
+                    A musician sits on the platform, carefully tuning<br class="mobile-hide">
+                    a portative organ. Based on the flyers outside,<br class="mobile-hide">
+                    you gather that the performance<br class="mobile-hide">
+                    won’t begin for a while.<br><br>
+    
+                    Exhausted, you consider resting<br class="mobile-hide">
+                    your legs for a minute.
+    
+                    
+                <br><br>
+                    <a id="success-3-button" href="#">Take a seat.</a>
+                </p>  
+            </div>
+        </div>
+    </template>
+    
+    <template id="success-screen-4">
+        <div class="main-content fade-in">
+            <div class="wrapper-scale">
+                <p class="message hint">
+                    Despite your best intentions,<br class="mobile-hide">
+                    you feel your mind start to wander<br class="mobile-hide">
+                    towards unpleasant memories.
+    
+                <br><br>
+                    <a id="success-4-button" href="#">Give in...</a>
+                </p>  
+            </div>
+        </div>
+    </template>
+    
+    <template id="success-screen-5">
+        <div class="main-content fade-in">
+            <div class="wrapper-scale">
+                    <p class="message hint">
+                        The blinding glint of<br class="mobile-hide">
+                        sunlight on steel.                    
+        
+                    <br><br>
+                        <a id="success-5-button" href="#">...and remember...</a>
+                    </p>  
+                </div>
+            </div>
+    </template>
+    
+    <template id="success-screen-6">
+        <div class="main-content fade-in">
+            <div class="wrapper-scale">
+                <p class="message hint">
+                    Eyes the color of<br class="mobile-hide">
+                    poison oak.
+    
+                <br><br>
+                    <a id="success-6-button" href="#">...</a>
+                </p>  
+            </div>
+        </div>
+    </template>
+    
+    <template id="success-screen-7">
+        <div class="main-content fade-in">
+            <div class="wrapper-scale">
+                <p class="message hint">
+                    <a href="https://www.playsonnet.com">...</a>
+                </p>  
+            </div>
+        </div>
+    </template>
+    
+
+    <script>
+        // Ordered list of success screen template IDs
+        const successScreens = [
+            "success-screen-3",
+            "success-screen-4",
+            "success-screen-5",
+            "success-screen-6",
+            "success-screen-7"
+        ];
+    
+        let currentIndex = 0;
+    
+        function showNextScreen() {
+            if (currentIndex >= successScreens.length) return;
+    
+            const templateId = successScreens[currentIndex];
+            const template = document.getElementById(templateId);
+    
+            const oldMain = document.querySelector(".main-content");
+            oldMain.classList.add("fade-out");
+    
+            setTimeout(() => {
+                oldMain.remove();
+    
+                // Clone and append the new screen
+                const clone = template.content.cloneNode(true);
+                document.body.appendChild(clone);
+    
+                currentIndex++;
+    
+                // Set up click on the next screen’s button
+                const nextButton = document.querySelector(".main-content a");
+                if (nextButton) {
+                    // Only prevent default if there's another screen to show
+                    if (currentIndex < successScreens.length) {
+                        nextButton.addEventListener("click", (e) => {
+                            e.preventDefault();
+                            showNextScreen();
+                        });
+                    }
+                }
+            }, 500); // match fade-out time
+        }
+    
+        // Initial event to kick off the sequence
+        document.getElementById("success-2-button").addEventListener("click", (e) => {
+            e.preventDefault();
+            showNextScreen();
+        });
+    </script>
+
+
+</body>
+
+
+</html>
+
